@@ -5,22 +5,23 @@
  */
 
 import React, { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
-import { 
-  User, 
-  Calendar, 
-  MapPin, 
-  Gift, 
-  Users, 
-  CheckCircle, 
+import { useParams } from 'react-router-dom';
+import {
+  User,
+  Calendar,
+  MapPin,
+  Gift,
+  Users,
+  CheckCircle,
   Clock,
   UserX,
   AlertCircle,
-  Home,
   QrCode,
   Star,
   FileText,
-  UserCheck
+  UserCheck,
+  Lock,
+  KeyRound
 } from 'lucide-react';
 import './ProfileCard.css';
 
@@ -33,6 +34,11 @@ const ProfileCard = () => {
   const [guest, setGuest] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [isUnlocked, setIsUnlocked] = useState(false);
+  const [passcodeInput, setPasscodeInput] = useState('');
+  const [passcodeError, setPasscodeError] = useState(false);
+
+  const CORRECT_PASSCODE = 'bahagiaselalu';
 
   // Fetch guest data
   useEffect(() => {
@@ -135,6 +141,120 @@ const ProfileCard = () => {
     );
   };
 
+  // Handle passcode submission
+  const handlePasscodeSubmit = (e) => {
+    e.preventDefault();
+    if (passcodeInput.toLowerCase() === CORRECT_PASSCODE.toLowerCase()) {
+      setIsUnlocked(true);
+      setPasscodeError(false);
+    } else {
+      setPasscodeError(true);
+      setPasscodeInput('');
+    }
+  };
+
+  // Passcode Entry Screen
+  if (!isUnlocked) {
+    return (
+      <div className="profile-card-container">
+        <div className="profile-card">
+          <div className="card-header">
+            <div className="header-background">
+              <div className="gradient-overlay"></div>
+            </div>
+            <div className="header-content">
+              <div className="avatar" style={{ backgroundColor: '#6366f1' }}>
+                <Lock size={48} />
+              </div>
+              <h1 className="guest-name">Protected Guest Profile</h1>
+              <p className="guest-uid" style={{ color: '#fff', opacity: 0.9 }}>
+                Please enter passcode to continue
+              </p>
+            </div>
+          </div>
+
+          <div className="card-body" style={{ padding: '3rem 2rem' }}>
+            <form onSubmit={handlePasscodeSubmit} style={{ maxWidth: '400px', margin: '0 auto' }}>
+              <div style={{ marginBottom: '1.5rem', textAlign: 'center' }}>
+                <KeyRound size={48} style={{ color: '#6366f1', margin: '0 auto 1rem' }} />
+                <h3 style={{ fontSize: '1.25rem', fontWeight: '600', marginBottom: '0.5rem' }}>
+                  Enter Passcode
+                </h3>
+                <p style={{ color: '#6b7280', fontSize: '0.875rem' }}>
+                  This profile is password protected
+                </p>
+              </div>
+
+              <div style={{ marginBottom: '1rem' }}>
+                <input
+                  type="password"
+                  value={passcodeInput}
+                  onChange={(e) => {
+                    setPasscodeInput(e.target.value);
+                    setPasscodeError(false);
+                  }}
+                  placeholder="Enter passcode"
+                  autoFocus
+                  style={{
+                    width: '100%',
+                    padding: '0.75rem 1rem',
+                    border: passcodeError ? '2px solid #ef4444' : '2px solid #e5e7eb',
+                    borderRadius: '0.5rem',
+                    fontSize: '1rem',
+                    outline: 'none',
+                    transition: 'border-color 0.2s',
+                    backgroundColor: passcodeError ? '#fef2f2' : '#fff'
+                  }}
+                  onFocus={(e) => {
+                    if (!passcodeError) {
+                      e.target.style.borderColor = '#6366f1';
+                    }
+                  }}
+                  onBlur={(e) => {
+                    if (!passcodeError) {
+                      e.target.style.borderColor = '#e5e7eb';
+                    }
+                  }}
+                />
+                {passcodeError && (
+                  <p style={{ color: '#ef4444', fontSize: '0.875rem', marginTop: '0.5rem' }}>
+                    ✗ Incorrect passcode. Please try again.
+                  </p>
+                )}
+              </div>
+
+              <button
+                type="submit"
+                style={{
+                  width: '100%',
+                  padding: '0.75rem 1.5rem',
+                  backgroundColor: '#6366f1',
+                  color: '#fff',
+                  border: 'none',
+                  borderRadius: '0.5rem',
+                  fontSize: '1rem',
+                  fontWeight: '500',
+                  cursor: 'pointer',
+                  transition: 'background-color 0.2s'
+                }}
+                onMouseOver={(e) => e.target.style.backgroundColor = '#4f46e5'}
+                onMouseOut={(e) => e.target.style.backgroundColor = '#6366f1'}
+              >
+                Unlock Profile
+              </button>
+            </form>
+          </div>
+
+          <div className="card-footer">
+            <p className="footer-text">
+              🎊 RuangTamu by PutuWistika
+            </p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   // Loading State
   if (loading) {
     return (
@@ -158,10 +278,6 @@ const ProfileCard = () => {
             <AlertCircle size={64} className="error-icon" />
             <h2>Oops! Something went wrong</h2>
             <p>{error}</p>
-            <Link to="/" className="btn-home">
-              <Home size={18} />
-              Back to Home
-            </Link>
           </div>
         </div>
       </div>
@@ -177,10 +293,6 @@ const ProfileCard = () => {
             <UserX size={64} className="error-icon" />
             <h2>Guest Not Found</h2>
             <p>The guest with UID "{uid}" does not exist in our system.</p>
-            <Link to="/" className="btn-home">
-              <Home size={18} />
-              Back to Home
-            </Link>
           </div>
         </div>
       </div>
@@ -386,10 +498,6 @@ const ProfileCard = () => {
 
         {/* Footer */}
         <div className="card-footer">
-          <Link to="/" className="btn-back">
-            <Home size={18} />
-            Back to Home
-          </Link>
           <p className="footer-text">
             🎊 RuangTamu by PutuWistika
           </p>
