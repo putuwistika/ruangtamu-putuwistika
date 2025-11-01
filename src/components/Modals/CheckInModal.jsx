@@ -9,7 +9,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import {
   UserCheck,
   User,
-  Phone,
+  Hash,
   Users,
   Gift,
   FileText,
@@ -141,7 +141,14 @@ const CheckInModal = ({ isOpen, onClose, guest, onSuccess }) => {
   // Handle next step
   const handleNext = () => {
     if (currentStep === 1) {
-      setCurrentStep(2);
+      // If guest already checked in, go directly to view details
+      if (!canCheckIn) {
+        setCheckedInGuest(guest);
+        setIsAlreadyCheckedIn(true);
+        setCurrentStep(3);
+      } else {
+        setCurrentStep(2);
+      }
     } else if (currentStep === 2) {
       handleCheckIn();
     }
@@ -287,12 +294,12 @@ const CheckInModal = ({ isOpen, onClose, guest, onSuccess }) => {
 
                 {/* Details Grid */}
                 <div className="grid grid-cols-2 gap-4">
-                  {/* Phone */}
+                  {/* Table Number */}
                   {guest.table_number && (
                     <div className="flex items-center gap-2">
-                      <Phone className="w-4 h-4 text-gray-500" />
+                      <Hash className="w-4 h-4 text-gray-500" />
                       <div>
-                        <p className="text-xs text-gray-500">Phone</p>
+                        <p className="text-xs text-gray-500">Nomor Meja</p>
                         <p className="text-sm font-medium text-gray-900">
                           {guest.table_number}
                         </p>
