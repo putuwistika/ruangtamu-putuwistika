@@ -34,36 +34,29 @@ const CreateGuest = lazy(() => import('./pages/Admin/CreateGuest'));
 const AllGuests = lazy(() => import('./pages/Admin/AllGuests'));
 const AdminQueue = lazy(() => import('./pages/Admin/Queue'));
 
-// Placeholders
-const RunnerDashboard = () => (
+// Runner Pages - Lazy load
+const RunnerDashboard = lazy(() => import('./pages/Runner/Dashboard'));
+const RunnerQueue = lazy(() => import('./pages/Runner/Queue'));
+const RunnerMyGuests = lazy(() => import('./pages/Runner/Completed'));
+
+// Placeholders (if needed for future pages)
+const PlaceholderRunner = () => (
   <div className="flex items-center justify-center min-h-screen bg-blue-50">
     <div className="text-center p-8 bg-white rounded-xl shadow-lg">
-      <h1 className="text-3xl font-bold mb-2">🏃‍♂️ Runner Dashboard</h1>
+      <h1 className="text-3xl font-bold mb-2">🏃‍♂️ Runner Page</h1>
       <p className="text-gray-600">Coming soon...</p>
     </div>
   </div>
 );
 
-const RunnerQueue = () => (
+const PlaceholderQueue = () => (
   <div className="flex items-center justify-center min-h-screen bg-green-50">
     <div className="text-center p-8 bg-white rounded-xl shadow-lg">
-      <h1 className="text-3xl font-bold mb-2">📋 Runner Queue</h1>
+      <h1 className="text-3xl font-bold mb-2">📋 Queue</h1>
       <p className="text-gray-600">Coming soon...</p>
     </div>
   </div>
 );
-
-const RunnerMyGuests = () => (
-  <div className="flex items-center justify-center min-h-screen bg-purple-50">
-    <div className="text-center p-8 bg-white rounded-xl shadow-lg">
-      <h1 className="text-3xl font-bold mb-2">👥 My Guests</h1>
-      <p className="text-gray-600">Coming soon...</p>
-    </div>
-  </div>
-);
-
-// ❌ HAPUS GuestCard placeholder - sudah diganti dengan ProfileCard
-// const GuestCard = () => ( ... )
 
 // Error Boundary
 class ErrorBoundary extends React.Component {
