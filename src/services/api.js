@@ -1,19 +1,20 @@
 /**
  * 🎊 RuangTamu - Wedding Check-in System
- * API Service Layer (FIXED FOR ALL RESPONSE FORMATS!)
+ * API Service Layer (UPDATED DOMAIN!)
  * by PutuWistika
  */
 
 import axios from 'axios';
 
 // ============================================
-// CONFIGURATION
+// CONFIGURATION - NEW DOMAIN!
 // ============================================
 
-const BASE_URL = 'https://n8n.srv1095171.hstgr.cloud';
+const BASE_URL = 'https://servern8n.putuwistika.com';
 
 console.log('🔧 API Configuration:', {
   baseURL: BASE_URL,
+  loginEndpoint: `${BASE_URL}/webhook/auth/login`,
 });
 
 // ============================================
@@ -92,11 +93,20 @@ api.interceptors.response.use(
 // AUTH ENDPOINTS
 // ============================================
 
+/**
+ * Login user
+ * Endpoint: POST /webhook/auth/login
+ */
 export const login = async (email, password) => {
   try {
+    console.log('🔐 Attempting login...', { email });
+    
     const response = await api.post('/webhook/auth/login', { email, password });
+    
+    console.log('✅ Login response:', response);
     return response;
   } catch (error) {
+    console.error('❌ Login failed:', error.message);
     throw error;
   }
 };
@@ -105,9 +115,15 @@ export const login = async (email, password) => {
 // GUEST ENDPOINTS
 // ============================================
 
+/**
+ * Get all guests
+ * Endpoint: GET /webhook/get-guests
+ */
 export const getAllGuests = async () => {
   try {
     const response = await api.get('/webhook/get-guests');
+    
+    console.log('📋 Get all guests response:', response);
     
     // ✅ Extract guests array if exists
     if (response.guests) {
@@ -124,15 +140,25 @@ export const getAllGuests = async () => {
   }
 };
 
+/**
+ * Get single guest by UID
+ * Endpoint: GET /webhook/1d3229bc-af4b-4a6b-bef1-b16b8760a05f/get-guest/:uid
+ */
 export const getGuestByUID = async (uid) => {
   try {
     const response = await api.get(`/webhook/1d3229bc-af4b-4a6b-bef1-b16b8760a05f/get-guest/${uid}`);
+    
+    console.log('👤 Get guest by UID response:', response);
     return response;
   } catch (error) {
     throw error;
   }
 };
 
+/**
+ * Search guests (fuzzy search)
+ * Endpoint: POST /webhook/search-guests
+ */
 export const searchGuests = async (query) => {
   try {
     const response = await api.post('/webhook/search-guests', { query });
@@ -145,6 +171,7 @@ export const searchGuests = async (query) => {
         success: response.success,
         data: response.guests,
         total: response.total || response.guests.length,
+        query: response.query,
       };
     }
     
@@ -154,33 +181,57 @@ export const searchGuests = async (query) => {
   }
 };
 
+/**
+ * Create new guest
+ * Endpoint: POST /webhook/create-guest
+ */
 export const createGuest = async (guestData) => {
   try {
+    console.log('➕ Creating guest:', guestData);
+    
     const response = await api.post('/webhook/create-guest', guestData);
+    
+    console.log('✅ Create guest response:', response);
     return response;
   } catch (error) {
     throw error;
   }
 };
 
+/**
+ * Check-in guest
+ * Endpoint: POST /webhook/check-in-guest
+ */
 export const checkInGuest = async (uid, checkInData) => {
   try {
+    console.log('🎫 Checking in guest:', { uid, checkInData });
+    
     const response = await api.post('/webhook/check-in-guest', {
       uid,
       ...checkInData,
     });
+    
+    console.log('✅ Check-in response:', response);
     return response;
   } catch (error) {
     throw error;
   }
 };
 
+/**
+ * Take guest from queue (Runner)
+ * Endpoint: POST /webhook/take-guest
+ */
 export const takeGuest = async (uid, takeData) => {
   try {
+    console.log('🚀 Taking guest to table:', { uid, takeData });
+    
     const response = await api.post('/webhook/take-guest', {
       uid,
       ...takeData,
     });
+    
+    console.log('✅ Take guest response:', response);
     return response;
   } catch (error) {
     throw error;
@@ -191,6 +242,10 @@ export const takeGuest = async (uid, takeData) => {
 // QUEUE ENDPOINTS
 // ============================================
 
+/**
+ * Get queue list
+ * Endpoint: GET /webhook/get-queue
+ */
 export const getQueue = async () => {
   try {
     const response = await api.get('/webhook/get-queue');
@@ -220,12 +275,18 @@ export const getQueue = async () => {
   }
 };
 
-// Alias for backward compatibility
+// ✅ Alias for backward compatibility
 export const getQueueList = getQueue;
 
+/**
+ * Get runner's completed guests
+ * Endpoint: GET /webhook/99572f92-6c4f-486b-b4e4-dd5df671e866/runner-completed/:runnerId
+ */
 export const getRunnerCompleted = async (runnerId) => {
   try {
     const response = await api.get(`/webhook/99572f92-6c4f-486b-b4e4-dd5df671e866/runner-completed/${runnerId}`);
+    
+    console.log('✅ Runner completed response:', response);
     
     // ✅ Extract guests array if exists
     if (response.guests) {
