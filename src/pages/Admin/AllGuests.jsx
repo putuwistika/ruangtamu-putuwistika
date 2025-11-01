@@ -126,30 +126,21 @@ const AllGuests = () => {
     },
     {
       key: 'table_number',
-      label: 'Phone',
+      label: 'Table Number',
       sortable: true,
       render: (value) => (
-        <span className="text-sm text-gray-900">
+        <span className="text-sm font-medium text-gray-900">
           {value || <span className="text-gray-400">-</span>}
         </span>
       ),
     },
     {
-      key: 'companion_count',
-      label: 'Companions',
-      sortable: true,
-      width: '100px',
-      render: (value) => (
-        <span className="text-sm font-medium text-gray-900">{value || 0}</span>
-      ),
-    },
-    {
-      key: 'gift_type',
-      label: 'Gift',
+      key: 'invitation_type',
+      label: 'Invitation Type',
       sortable: true,
       render: (value) => (
         <span className="text-sm text-gray-900">
-          {value ? value : <span className="text-gray-400">-</span>}
+          {value || <span className="text-gray-400">-</span>}
         </span>
       ),
     },
@@ -359,7 +350,7 @@ const AllGuests = () => {
                     data={paginatedGuests}
                     loading={loading}
                     searchable
-                    searchPlaceholder="Search by name, phone, or UID..."
+                    searchPlaceholder="Search by name, table number, or UID..."
                     onSearch={setSearchQuery}
                     emptyMessage="No guests found"
                   />
