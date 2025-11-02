@@ -226,7 +226,7 @@ const RunnerQueue = () => {
                           transition={{ delay: index * 0.05 }}
                           className="p-6 hover:bg-gray-50 transition-colors"
                         >
-                          <div className="flex items-center gap-4">
+                          <div className="flex flex-col sm:flex-row sm:items-center gap-4">
                             {/* Queue Position */}
                             <div className="flex-shrink-0">
                               <div className="w-12 h-12 bg-primary-600 text-white rounded-full flex items-center justify-center font-bold text-lg">
@@ -235,48 +235,49 @@ const RunnerQueue = () => {
                             </div>
 
                             {/* Guest Info */}
-                            <div className="flex-1 min-w-0">
-                              <div className="flex items-start justify-between gap-4 mb-2">
-                                <div className="flex-1 min-w-0">
-                                  <h3 className="text-lg font-semibold text-gray-900 truncate">
+                            <div className="flex-1 w-full flex flex-col sm:flex-row sm:items-start gap-4">
+                              <div className="flex-1 w-full space-y-3 sm:space-y-2">
+                                <div className="space-y-2">
+                                  <h3 className="text-lg font-semibold text-gray-900 break-words">
                                     {guest.name}
                                   </h3>
-                                  <div className="flex items-center gap-3 text-sm text-gray-600 mt-1">
+                                  <div className="flex flex-wrap gap-x-3 gap-y-1 text-sm text-gray-600 mt-1">
                                     <span className="flex items-center gap-1">
                                       <Users className="w-4 h-4" />
                                       {guest.companion_count || 0} companion(s)
                                     </span>
                                     {guest.table_number && (
                                       <span className="flex items-center gap-1">
-                                        " Table {guest.table_number}
+                                        Table {guest.table_number}
                                       </span>
                                     )}
                                   </div>
                                 </div>
+
+                                {/* Check-in Time */}
+                                <div className="flex items-center gap-2 text-sm text-gray-500">
+                                  <Clock className="w-4 h-4" />
+                                  <span>
+                                    Checked in:{' '}
+                                    {guest.check_in_time
+                                      ? formatTimeAgo(guest.check_in_time)
+                                      : 'Just now'}
+                                  </span>
+                                </div>
+                              </div>
+
+                              {/* Status & Actions */}
+                              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-end gap-3 w-full sm:w-auto sm:ml-6">
                                 <Badge.Status status={guest.check_in_status} />
+                                <Button
+                                  variant="primary"
+                                  leftIcon={<UserCheck className="w-5 h-5" />}
+                                  onClick={() => handleTakeGuest(guest)}
+                                  className="w-full sm:w-auto"
+                                >
+                                  Take Guest
+                                </Button>
                               </div>
-
-                              {/* Check-in Time */}
-                              <div className="flex items-center gap-2 text-sm text-gray-500">
-                                <Clock className="w-4 h-4" />
-                                <span>
-                                  Checked in:{' '}
-                                  {guest.check_in_time
-                                    ? formatTimeAgo(guest.check_in_time)
-                                    : 'Just now'}
-                                </span>
-                              </div>
-                            </div>
-
-                            {/* Actions */}
-                            <div className="flex-shrink-0">
-                              <Button
-                                variant="primary"
-                                leftIcon={<UserCheck className="w-5 h-5" />}
-                                onClick={() => handleTakeGuest(guest)}
-                              >
-                                Take Guest
-                              </Button>
                             </div>
                           </div>
                         </motion.div>
