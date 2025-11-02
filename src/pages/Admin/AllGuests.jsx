@@ -23,7 +23,7 @@ import Button from '@components/ui/Button';
 import Table from '@components/ui/Table';
 import CheckInModal from '@components/Modals/CheckInModal';
 import { getAllGuests } from '@services/api';
-import { ROUTES, GUEST_STATUS } from '@utils/constants';
+import { ROUTES, GUEST_STATUS, STATUS_LABELS } from '@utils/constants';
 import { formatCurrency, formatDateTime } from '@utils/helpers';
 import { toast } from 'sonner';
 
@@ -41,6 +41,7 @@ const AllGuests = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
   const [searchQuery, setSearchQuery] = useState('');
+  const [statusFilter, setStatusFilter] = useState('all');
 
   // Modal state
   const [showCheckInModal, setShowCheckInModal] = useState(false);
@@ -51,22 +52,43 @@ const AllGuests = () => {
     fetchGuests();
   }, []);
 
-  // Filter guests when search changes
+  const statusOptions = [
+    { value: 'all', label: 'All Statuses' },
+    ...Object.entries(STATUS_LABELS).map(([value, label]) => ({
+      value,
+      label,
+    })),
+  ];
+
+  const applyFilters = (guestList, query, status) => {
+    const trimmedQuery = query.trim().toLowerCase();
+
+    return guestList.filter((guest) => {
+      const matchesStatus =
+        status === 'all' || guest.check_in_status === status;
+
+      if (!trimmedQuery) {
+        return matchesStatus;
+      }
+
+      const matchesQuery =
+        guest.name?.toLowerCase().includes(trimmedQuery) ||
+        guest.table_number?.toLowerCase().includes(trimmedQuery) ||
+        guest.uid?.toLowerCase().includes(trimmedQuery);
+
+      return matchesStatus && matchesQuery;
+    });
+  };
+
+  // Filter guests when search or status changes
   useEffect(() => {
-    if (!searchQuery.trim()) {
-      setFilteredGuests(guests);
-    } else {
-      const query = searchQuery.toLowerCase();
-      const filtered = guests.filter(
-        (guest) =>
-          guest.name?.toLowerCase().includes(query) ||
-          guest.table_number?.toLowerCase().includes(query) ||
-          guest.uid?.toLowerCase().includes(query)
-      );
-      setFilteredGuests(filtered);
-      setCurrentPage(1); // Reset to first page on search
-    }
-  }, [searchQuery, guests]);
+    const filtered = applyFilters(guests, searchQuery, statusFilter);
+    setFilteredGuests(filtered);
+  }, [searchQuery, guests, statusFilter]);
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [searchQuery, statusFilter]);
 
   const fetchGuests = async () => {
     try {
@@ -75,7 +97,7 @@ const AllGuests = () => {
       const guestList = response.data || [];
       
       setGuests(guestList);
-      setFilteredGuests(guestList);
+      setFilteredGuests(applyFilters(guestList, searchQuery, statusFilter));
       
       toast.success(`Loaded ${guestList.length} guests`);
     } catch (error) {
@@ -345,6 +367,31 @@ const AllGuests = () => {
                 </div>
 
                 <div className="p-6">
+                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-4">
+                    <div className="flex items-center gap-3">
+                      <label
+                        htmlFor="statusFilter"
+                        className="text-sm font-medium text-gray-700"
+                      >
+                        Status
+                      </label>
+                      <select
+                        id="statusFilter"
+                        value={statusFilter}
+                        onChange={(event) => {
+                          setStatusFilter(event.target.value);
+                          setCurrentPage(1);
+                        }}
+                        className="block rounded-md border border-gray-300 bg-white px-3 py-2 text-sm text-gray-700 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-200"
+                      >
+                        {statusOptions.map((option) => (
+                          <option key={option.value} value={option.value}>
+                            {option.label}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  </div>
                   <Table
                     columns={columns}
                     data={paginatedGuests}
