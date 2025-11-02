@@ -4,7 +4,7 @@
  * by PutuWistika
  */
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import {
@@ -42,6 +42,7 @@ const AllGuests = () => {
   const [pageSize, setPageSize] = useState(10);
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState('all');
+  const [tableFilter, setTableFilter] = useState('all');
 
   // Modal state
   const [showCheckInModal, setShowCheckInModal] = useState(false);
@@ -60,35 +61,78 @@ const AllGuests = () => {
     })),
   ];
 
-  const applyFilters = (guestList, query, status) => {
+  const tableOptions = useMemo(() => {
+    const uniqueTables = Array.from(
+      new Set(
+        guests
+          .map((guest) => guest.table_number)
+          .filter((tableNumber) => {
+            if (tableNumber === null || tableNumber === undefined) {
+              return false;
+            }
+
+            const normalized = `${tableNumber}`.trim();
+            return normalized.length > 0;
+          })
+          .map((tableNumber) => `${tableNumber}`)
+      )
+    );
+
+    uniqueTables.sort((a, b) => {
+      const numA = Number(a);
+      const numB = Number(b);
+
+      if (!Number.isNaN(numA) && !Number.isNaN(numB)) {
+        return numA - numB;
+      }
+
+      return a.localeCompare(b, undefined, { sensitivity: 'base', numeric: true });
+    });
+
+    return [
+      { value: 'all', label: 'All Tables' },
+      ...uniqueTables.map((tableNumber) => ({
+        value: tableNumber,
+        label: `Table ${tableNumber}`,
+      })),
+    ];
+  }, [guests]);
+
+  const applyFilters = (guestList, query, status, table) => {
     const trimmedQuery = query.trim().toLowerCase();
 
     return guestList.filter((guest) => {
       const matchesStatus =
         status === 'all' || guest.check_in_status === status;
+      const guestTableRaw = guest.table_number;
+      const guestTable =
+        guestTableRaw !== null && guestTableRaw !== undefined
+          ? `${guestTableRaw}`.trim().toLowerCase()
+          : '';
+      const matchesTable = table === 'all' || guestTable === `${table}`.trim().toLowerCase();
 
       if (!trimmedQuery) {
-        return matchesStatus;
+        return matchesStatus && matchesTable;
       }
 
       const matchesQuery =
         guest.name?.toLowerCase().includes(trimmedQuery) ||
-        guest.table_number?.toLowerCase().includes(trimmedQuery) ||
+        guestTable.includes(trimmedQuery) ||
         guest.uid?.toLowerCase().includes(trimmedQuery);
 
-      return matchesStatus && matchesQuery;
+      return matchesStatus && matchesTable && matchesQuery;
     });
   };
 
   // Filter guests when search or status changes
   useEffect(() => {
-    const filtered = applyFilters(guests, searchQuery, statusFilter);
+    const filtered = applyFilters(guests, searchQuery, statusFilter, tableFilter);
     setFilteredGuests(filtered);
-  }, [searchQuery, guests, statusFilter]);
+  }, [searchQuery, guests, statusFilter, tableFilter]);
 
   useEffect(() => {
     setCurrentPage(1);
-  }, [searchQuery, statusFilter]);
+  }, [searchQuery, statusFilter, tableFilter]);
 
   const fetchGuests = async () => {
     try {
@@ -97,8 +141,8 @@ const AllGuests = () => {
       const guestList = response.data || [];
       
       setGuests(guestList);
-      setFilteredGuests(applyFilters(guestList, searchQuery, statusFilter));
-      
+      setFilteredGuests(applyFilters(guestList, searchQuery, statusFilter, tableFilter));
+
       toast.success(`Loaded ${guestList.length} guests`);
     } catch (error) {
       console.error('Error fetching guests:', error);
@@ -367,13 +411,14 @@ const AllGuests = () => {
                 </div>
 
                 <div className="p-6">
-                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-4">
-                    <div className="flex items-center gap-3">
-                      <label
-                        htmlFor="statusFilter"
-                        className="text-sm font-medium text-gray-700"
-                      >
-                        Status
+                  <div className="flex flex-col gap-4 mb-4 sm:flex-row sm:items-center sm:justify-between">
+                    <div className="flex flex-wrap items-center gap-4">
+                      <div className="flex items-center gap-3">
+                        <label
+                          htmlFor="statusFilter"
+                          className="text-sm font-medium text-gray-700"
+                        >
+                          Status
                       </label>
                       <select
                         id="statusFilter"
@@ -390,6 +435,31 @@ const AllGuests = () => {
                           </option>
                         ))}
                       </select>
+                      </div>
+
+                      <div className="flex items-center gap-3">
+                        <label
+                          htmlFor="tableFilter"
+                          className="text-sm font-medium text-gray-700"
+                        >
+                          Table
+                        </label>
+                        <select
+                          id="tableFilter"
+                          value={tableFilter}
+                          onChange={(event) => {
+                            setTableFilter(event.target.value);
+                            setCurrentPage(1);
+                          }}
+                          className="block rounded-md border border-gray-300 bg-white px-3 py-2 text-sm text-gray-700 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-200"
+                        >
+                          {tableOptions.map((option) => (
+                            <option key={option.value} value={option.value}>
+                              {option.label}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
                     </div>
                   </div>
                   <Table
