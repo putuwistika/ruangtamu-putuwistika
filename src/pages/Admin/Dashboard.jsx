@@ -41,7 +41,7 @@ const AdminDashboard = () => {
   const [stats, setStats] = useState({
     total: 0,
     checkedIn: 0,
-    waiting: 0,
+    inQueue: 0,
     completed: 0,
   });
   const [recentGuests, setRecentGuests] = useState([]);
@@ -65,17 +65,17 @@ const AdminDashboard = () => {
       const queue = queueResponse.data || [];
 
       // Calculate statistics
-      const queueCount = guests.filter(
-        (g) => g.check_in_status === GUEST_STATUS.QUEUE,
+      const inQueueCount = guests.filter(
+        (guest) => guest.check_in_status === GUEST_STATUS.QUEUE,
       ).length;
       const completedCount = guests.filter(
-        (g) => g.check_in_status === GUEST_STATUS.DONE,
+        (guest) => guest.check_in_status === GUEST_STATUS.DONE,
       ).length;
 
       const statistics = {
         total: guests.length,
-        checkedIn: queueCount + completedCount,
-        waiting: guests.filter((g) => g.check_in_status === GUEST_STATUS.NOT_ARRIVED).length,
+        checkedIn: inQueueCount + completedCount,
+        inQueue: inQueueCount,
         completed: completedCount,
       };
 
@@ -109,7 +109,7 @@ const AdminDashboard = () => {
     },
     {
       title: 'In Queue',
-      value: stats.waiting,
+      value: stats.inQueue,
       icon: Clock,
       color: 'yellow',
       trend: '-5%',
