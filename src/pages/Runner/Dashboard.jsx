@@ -47,7 +47,7 @@ const RunnerDashboard = () => {
   // Fetch dashboard data
   useEffect(() => {
     fetchDashboardData();
-  }, [user?.uid]);
+  }, [user?.email]);
 
   const fetchDashboardData = async (silent = false) => {
     try {
@@ -57,11 +57,13 @@ const RunnerDashboard = () => {
       const queueResponse = await getQueue();
       const queue = queueResponse.data || [];
 
-      // Fetch completed guests for this runner
-      const completedResponse = user?.uid
-        ? await getRunnerCompleted(user.uid)
+      // Fetch completed guests for this runner (by email)
+      console.log('🔍 Fetching completed guests for runner email:', user?.email);
+      const completedResponse = user?.email
+        ? await getRunnerCompleted(user.email)
         : { data: [] };
       const completed = completedResponse.data || [];
+      console.log('✅ Completed guests:', completed);
 
       // Calculate statistics
       const statistics = {

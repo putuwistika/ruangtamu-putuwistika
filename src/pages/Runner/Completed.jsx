@@ -1,5 +1,5 @@
 /**
- * <� RuangTamu - Wedding Check-in System
+ * <� RuangTamu - Wedding Check-in System
  * Runner Completed Page - View all guests handled by runner
  * by PutuWistika
  */
@@ -41,7 +41,7 @@ const RunnerCompleted = () => {
 
   // Fetch guests
   useEffect(() => {
-    if (user?.uid) {
+    if (user?.email) {
       fetchGuests();
 
       // Auto refresh
@@ -51,7 +51,7 @@ const RunnerCompleted = () => {
 
       return () => clearInterval(interval);
     }
-  }, [user?.uid]);
+  }, [user?.email]);
 
   // Filter guests when search changes
   useEffect(() => {
@@ -74,9 +74,11 @@ const RunnerCompleted = () => {
     try {
       if (!silent) setLoading(true);
 
-      const response = await getRunnerCompleted(user.uid);
+      console.log('🔍 Fetching guests for runner email:', user.email);
+      const response = await getRunnerCompleted(user.email);
       const guestList = response.data || [];
 
+      console.log('✅ Runner completed guests:', guestList);
       setGuests(guestList);
       setFilteredGuests(guestList);
 
