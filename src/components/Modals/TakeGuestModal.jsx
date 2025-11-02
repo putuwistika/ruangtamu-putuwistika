@@ -43,14 +43,9 @@ const TakeGuestModal = ({ isOpen, onClose, guest, onSuccess, runnerUser }) => {
     try {
       setLoading(true);
 
-      // Prepare runner info from logged-in user
-      const runnerInfo = runnerUser
-        ? `${runnerUser.name} (${runnerUser.email})`
-        : 'Admin';
-
-      // Prepare take data
+      // Prepare take data with runner email
       const takeData = {
-        assigned_runner: runnerInfo,
+        assigned_runner: runnerUser?.email || 'admin@ruangtamu.com',
       };
 
       // Add runner notes if provided

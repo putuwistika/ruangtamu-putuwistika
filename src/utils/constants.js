@@ -262,6 +262,7 @@ export const ROUTES = {
   
   // Runner Routes
   RUNNER_DASHBOARD: '/runner/dashboard',
+  RUNNER_SEARCH: '/runner/search',
   RUNNER_QUEUE: '/runner/queue',
   RUNNER_MY_GUESTS: '/runner/completed',
 };
@@ -273,6 +274,7 @@ export const ROUTE_LABELS = {
   [ROUTES.ADMIN_ALL_GUESTS]: 'All Guests',
   [ROUTES.ADMIN_QUEUE]: 'Queue',
   [ROUTES.RUNNER_DASHBOARD]: 'Dashboard',
+  [ROUTES.RUNNER_SEARCH]: 'Search Guest',
   [ROUTES.RUNNER_QUEUE]: 'Queue',
   [ROUTES.RUNNER_MY_GUESTS]: 'My Guests',
 };

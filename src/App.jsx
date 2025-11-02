@@ -36,6 +36,7 @@ const AdminQueue = lazy(() => import('./pages/Admin/Queue'));
 
 // Runner Pages - Lazy load
 const RunnerDashboard = lazy(() => import('./pages/Runner/Dashboard'));
+const RunnerSearchGuest = lazy(() => import('./pages/Runner/SearchGuest'));
 const RunnerQueue = lazy(() => import('./pages/Runner/Queue'));
 const RunnerMyGuests = lazy(() => import('./pages/Runner/Completed'));
 
@@ -170,6 +171,11 @@ const AppRoutes = () => (
       <Route path={ROUTES.RUNNER_DASHBOARD} element={
         <ProtectedRoute requiredRole={USER_ROLES.RUNNER}>
           <RunnerDashboard />
+        </ProtectedRoute>
+      } />
+      <Route path={ROUTES.RUNNER_SEARCH} element={
+        <ProtectedRoute requiredRole={USER_ROLES.RUNNER}>
+          <RunnerSearchGuest />
         </ProtectedRoute>
       } />
       <Route path={ROUTES.RUNNER_QUEUE} element={

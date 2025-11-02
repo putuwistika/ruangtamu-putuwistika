@@ -70,6 +70,11 @@ const Sidebar = ({ collapsed = false, onToggle }) => {
       path: ROUTES.RUNNER_DASHBOARD,
     },
     {
+      label: 'Search Guest',
+      icon: Search,
+      path: ROUTES.RUNNER_SEARCH,
+    },
+    {
       label: 'Queue List',
       icon: List,
       path: ROUTES.RUNNER_QUEUE,
