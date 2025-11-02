@@ -264,7 +264,7 @@ const AdminQueue = () => {
                           transition={{ delay: index * 0.05 }}
                           className="p-6 hover:bg-gray-50 transition-colors"
                         >
-                          <div className="flex items-center gap-4">
+                          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:gap-6">
                             {/* Queue Position */}
                             <div className="flex-shrink-0">
                               <div className="w-12 h-12 bg-primary-600 text-white rounded-full flex items-center justify-center font-bold text-lg">
@@ -273,17 +273,14 @@ const AdminQueue = () => {
                             </div>
 
                             {/* Guest Info */}
-                            <div className="flex-1 min-w-0">
-                              <div className="flex items-start justify-between gap-4 mb-2">
-                                <div className="flex-1 min-w-0">
-                                  <h3 className="text-lg font-semibold text-gray-900 truncate">
-                                    {guest.name}
-                                  </h3>
-                                  <p className="text-sm text-gray-600">
-                                    {guest.companion_count || 0} companion(s) • Table: {guest.table_number || '-'}
-                                  </p>
-                                </div>
-                                <Badge.Status status={guest.check_in_status} />
+                            <div className="flex-1 min-w-0 space-y-3">
+                              <div className="space-y-1">
+                                <h3 className="text-lg font-semibold text-gray-900 sm:truncate">
+                                  {guest.name}
+                                </h3>
+                                <p className="text-sm text-gray-600">
+                                  {guest.companion_count || 0} companion(s) • Table: {guest.table_number || '-'}
+                                </p>
                               </div>
 
                               {/* Check-in Time */}
@@ -298,15 +295,21 @@ const AdminQueue = () => {
                               </div>
                             </div>
 
-                            {/* Actions */}
-                            <div className="flex-shrink-0">
-                              <Button
-                                variant="primary"
-                                leftIcon={<Play className="w-5 h-5" />}
-                                onClick={() => handleTakeGuest(guest)}
-                              >
-                                Take to Table
-                              </Button>
+                            {/* Status & Actions */}
+                            <div className="flex flex-col gap-3 sm:ml-auto sm:flex-row sm:items-center sm:gap-4">
+                              <div>
+                                <Badge.Status status={guest.check_in_status} />
+                              </div>
+                              <div>
+                                <Button
+                                  variant="primary"
+                                  leftIcon={<Play className="w-5 h-5" />}
+                                  onClick={() => handleTakeGuest(guest)}
+                                  className="w-full sm:w-auto"
+                                >
+                                  Take to Table
+                                </Button>
+                              </div>
                             </div>
                           </div>
                         </motion.div>
