@@ -65,11 +65,18 @@ const AdminDashboard = () => {
       const queue = queueResponse.data || [];
 
       // Calculate statistics
+      const queueCount = guests.filter(
+        (g) => g.check_in_status === GUEST_STATUS.QUEUE,
+      ).length;
+      const completedCount = guests.filter(
+        (g) => g.check_in_status === GUEST_STATUS.DONE,
+      ).length;
+
       const statistics = {
         total: guests.length,
-        checkedIn: guests.filter((g) => g.check_in_status === GUEST_STATUS.QUEUE).length,
+        checkedIn: queueCount + completedCount,
         waiting: guests.filter((g) => g.check_in_status === GUEST_STATUS.NOT_ARRIVED).length,
-        completed: guests.filter((g) => g.check_in_status === GUEST_STATUS.DONE).length,
+        completed: completedCount,
       };
 
       setStats(statistics);
