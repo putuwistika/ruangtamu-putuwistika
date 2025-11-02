@@ -1,5 +1,5 @@
 /**
- * <Š RuangTamu - Wedding Check-in System
+ * <ï¿½ RuangTamu - Wedding Check-in System
  * Runner Dashboard - Overview & Statistics
  * by PutuWistika
  */
@@ -47,10 +47,6 @@ const RunnerDashboard = () => {
   // Fetch dashboard data
   useEffect(() => {
     fetchDashboardData();
-
-    // Auto refresh every 5 seconds
-    const interval = setInterval(fetchDashboardData, POLL_INTERVALS.STATS);
-    return () => clearInterval(interval);
   }, [user?.uid]);
 
   const fetchDashboardData = async (silent = false) => {

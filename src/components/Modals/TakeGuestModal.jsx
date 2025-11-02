@@ -1,5 +1,5 @@
 /**
- * <Š RuangTamu - Wedding Check-in System
+ * <ï¿½ RuangTamu - Wedding Check-in System
  * Take Guest Modal - Runner takes guest from queue to table
  * by PutuWistika
  */
@@ -26,7 +26,7 @@ import { toast } from 'sonner';
  * Take Guest Modal Component
  * Modal for runner to take guest from queue to table
  */
-const TakeGuestModal = ({ isOpen, onClose, guest, onSuccess, assignedRunner }) => {
+const TakeGuestModal = ({ isOpen, onClose, guest, onSuccess, runnerUser }) => {
   // State
   const [loading, setLoading] = useState(false);
   const [runnerNotes, setRunnerNotes] = useState('');
@@ -43,9 +43,14 @@ const TakeGuestModal = ({ isOpen, onClose, guest, onSuccess, assignedRunner }) =
     try {
       setLoading(true);
 
+      // Prepare runner info from logged-in user
+      const runnerInfo = runnerUser
+        ? `${runnerUser.name} (${runnerUser.email})`
+        : 'Admin';
+
       // Prepare take data
       const takeData = {
-        assigned_runner: assignedRunner || 'Admin',
+        assigned_runner: runnerInfo,
       };
 
       // Add runner notes if provided
@@ -53,16 +58,16 @@ const TakeGuestModal = ({ isOpen, onClose, guest, onSuccess, assignedRunner }) =
         takeData.runner_notes = runnerNotes.trim();
       }
 
-      console.log('<« Taking guest to table:', { uid: guest.uid, takeData });
+      console.log('<ï¿½ Taking guest to table:', { uid: guest.uid, takeData });
 
       // Call API
       const response = await takeGuest(guest.uid, takeData);
 
-      console.log('=å Take guest response:', response);
+      console.log('=ï¿½ Take guest response:', response);
 
       // Handle response
       if (response.success && response.statusCode === 200) {
-        toast.success(`${guest.name} taken to table ${guest.table_number}! <‰`);
+        toast.success(`${guest.name} taken to table ${guest.table_number}! <ï¿½`);
 
         // Notify parent
         if (onSuccess) {
@@ -180,7 +185,7 @@ const TakeGuestModal = ({ isOpen, onClose, guest, onSuccess, assignedRunner }) =
             disabled={loading}
           />
           <p className="text-xs text-gray-500 mt-2">
-            =¡ Optional: Add any relevant notes about seating this guest
+            =ï¿½ Optional: Add any relevant notes about seating this guest
           </p>
         </div>
 

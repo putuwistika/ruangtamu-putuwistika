@@ -1,5 +1,5 @@
 /**
- * <Š RuangTamu - Wedding Check-in System
+ * <ï¿½ RuangTamu - Wedding Check-in System
  * Runner Queue Page - View and take guests from queue
  * by PutuWistika
  */
@@ -323,7 +323,7 @@ const RunnerQueue = () => {
         }}
         guest={selectedGuest}
         onSuccess={handleTakeSuccess}
-        assignedRunner={user?.name || user?.email || 'Runner'}
+        runnerUser={user}
       />
     </div>
   );

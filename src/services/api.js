@@ -276,15 +276,15 @@ export const checkInGuest = async (uid, checkInData = {}) => {
  * Take guest from queue (Runner)
  * Endpoint: POST /webhook/take-guest
  */
-export const takeGuest = async (uid, tableNumber) => {
+export const takeGuest = async (uid, takeData) => {
   try {
-    console.log('🚀 Taking guest to table:', { uid, tableNumber });
-    
+    console.log('🚀 Taking guest to table:', { uid, takeData });
+
     const response = await api.post('/webhook/take-guest', {
       uid,
-      table_number: tableNumber,
+      ...takeData,
     });
-    
+
     console.log('✅ Take guest response:', response);
     return response;
   } catch (error) {
