@@ -5,11 +5,9 @@
  */
 
 import React, { useState, useEffect, useMemo } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import {
   Users,
-  UserPlus,
   Download,
   RefreshCw,
   UserCheck,
@@ -23,8 +21,8 @@ import Button from '@components/ui/Button';
 import Table from '@components/ui/Table';
 import CheckInModal from '@components/Modals/CheckInModal';
 import { getAllGuests } from '@services/api';
-import { ROUTES, GUEST_STATUS, STATUS_LABELS } from '@utils/constants';
-import { formatCurrency, formatDateTime } from '@utils/helpers';
+import { GUEST_STATUS, STATUS_LABELS } from '@utils/constants';
+import { formatDateTime } from '@utils/helpers';
 import { toast } from 'sonner';
 
 /**
@@ -32,8 +30,6 @@ import { toast } from 'sonner';
  * Display all guests in a table with pagination
  */
 const AllGuests = () => {
-  const navigate = useNavigate();
-
   // State
   const [guests, setGuests] = useState([]);
   const [filteredGuests, setFilteredGuests] = useState([]);
@@ -321,13 +317,6 @@ const AllGuests = () => {
                     onClick={handleExport}
                   >
                     Export
-                  </Button>
-                  <Button
-                    variant="primary"
-                    leftIcon={<UserPlus className="w-5 h-5" />}
-                    onClick={() => navigate(ROUTES.ADMIN_CREATE_GUEST)}
-                  >
-                    Add Guest
                   </Button>
                 </div>
               </div>

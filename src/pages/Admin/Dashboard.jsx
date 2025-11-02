@@ -15,7 +15,6 @@ import {
   TrendingUp,
   ArrowRight,
   Search,
-  UserPlus,
 } from 'lucide-react';
 import Sidebar from '@components/Layout/Sidebar';
 import Navbar from '@components/Layout/Navbar';
@@ -127,13 +126,6 @@ const AdminDashboard = () => {
       path: ROUTES.ADMIN_SEARCH,
     },
     {
-      title: 'Create Guest',
-      description: 'Add new guest to system',
-      icon: UserPlus,
-      color: 'green',
-      path: ROUTES.ADMIN_CREATE_GUEST,
-    },
-    {
       title: 'All Guests',
       description: 'View complete guest list',
       icon: Users,
@@ -218,7 +210,7 @@ const AdminDashboard = () => {
               <h2 className="text-xl font-bold text-gray-900 mb-4">
                 Quick Actions
               </h2>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {quickActions.map((action, index) => (
                   <Card
                     key={index}
