@@ -32,6 +32,10 @@ const Sidebar = ({ collapsed = false, onToggle }) => {
   const location = useLocation();
   const navigate = useNavigate();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
+
+  // Desktop sidebar is collapsed by default, expands on hover
+  const isExpanded = isHovered;
 
   // Admin menu items
   const adminMenuItems = [
@@ -101,7 +105,7 @@ const Sidebar = ({ collapsed = false, onToggle }) => {
   };
 
   // Menu Item Component
-  const MenuItem = ({ item }) => {
+  const MenuItem = ({ item, isMobile = false }) => {
     const Icon = item.icon;
     const active = isActive(item.path);
 
@@ -117,18 +121,18 @@ const Sidebar = ({ collapsed = false, onToggle }) => {
         onClick={() => setMobileOpen(false)}
       >
         <Icon className="w-5 h-5 flex-shrink-0" />
-        {!collapsed && <span>{item.label}</span>}
+        {(isMobile || isExpanded) && <span>{item.label}</span>}
       </Link>
     );
   };
 
   // Sidebar content
-  const SidebarContent = () => (
+  const SidebarContent = ({ isMobile = false }) => (
     <div className="flex flex-col h-full">
       {/* Header */}
       <div className="p-6 border-b border-gray-200">
         <div className="flex items-center justify-between gap-3">
-          {!collapsed && (
+          {(isMobile || isExpanded) ? (
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 bg-gradient-to-br from-primary-500 to-purple-500 rounded-xl flex items-center justify-center text-white font-bold text-lg">
                 R
@@ -138,28 +142,34 @@ const Sidebar = ({ collapsed = false, onToggle }) => {
                 <p className="text-xs text-gray-500 capitalize">{user?.role} Panel</p>
               </div>
             </div>
+          ) : (
+            <div className="w-10 h-10 bg-gradient-to-br from-primary-500 to-purple-500 rounded-xl flex items-center justify-center text-white font-bold text-lg mx-auto">
+              R
+            </div>
           )}
-          
+
           {/* Mobile close button */}
-          <button
-            onClick={() => setMobileOpen(false)}
-            className="lg:hidden text-gray-500 hover:text-gray-700"
-          >
-            <X className="w-5 h-5" />
-          </button>
+          {isMobile && (
+            <button
+              onClick={() => setMobileOpen(false)}
+              className="text-gray-500 hover:text-gray-700"
+            >
+              <X className="w-5 h-5" />
+            </button>
+          )}
         </div>
       </div>
 
       {/* Menu Items */}
       <nav className="flex-1 p-4 space-y-1 overflow-y-auto">
         {menuItems.map((item) => (
-          <MenuItem key={item.path} item={item} />
+          <MenuItem key={item.path} item={item} isMobile={isMobile} />
         ))}
       </nav>
 
       {/* User Info & Logout */}
       <div className="p-4 border-t border-gray-200">
-        {!collapsed && (
+        {(isMobile || isExpanded) && (
           <div className="mb-4">
             <div className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
               <div className="w-10 h-10 bg-primary-600 text-white rounded-full flex items-center justify-center font-semibold">
@@ -179,11 +189,12 @@ const Sidebar = ({ collapsed = false, onToggle }) => {
           onClick={handleLogout}
           className={cn(
             'flex items-center gap-3 w-full px-4 py-3 rounded-lg',
-            'text-red-600 hover:bg-red-50 transition-all duration-200'
+            'text-red-600 hover:bg-red-50 transition-all duration-200',
+            !isMobile && !isExpanded && 'justify-center'
           )}
         >
           <LogOut className="w-5 h-5 flex-shrink-0" />
-          {!collapsed && <span>Logout</span>}
+          {(isMobile || isExpanded) && <span>Logout</span>}
         </button>
       </div>
     </div>
@@ -209,24 +220,26 @@ const Sidebar = ({ collapsed = false, onToggle }) => {
 
       {/* Desktop Sidebar */}
       <aside
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
         className={cn(
           'fixed left-0 top-0 h-full bg-white border-r border-gray-200 z-30 transition-all duration-300',
-          'hidden lg:block',
-          collapsed ? 'w-20' : 'w-64'
+          'hidden lg:block shadow-lg',
+          isExpanded ? 'w-64' : 'w-20'
         )}
       >
-        <SidebarContent />
+        <SidebarContent isMobile={false} />
       </aside>
 
       {/* Mobile Sidebar */}
       <aside
         className={cn(
-          'fixed left-0 top-0 h-full w-64 bg-white border-r border-gray-200 z-50 transition-transform duration-300',
+          'fixed left-0 top-0 h-full w-64 bg-white border-r border-gray-200 z-50 transition-transform duration-300 shadow-xl',
           'lg:hidden',
           mobileOpen ? 'translate-x-0' : '-translate-x-full'
         )}
       >
-        <SidebarContent />
+        <SidebarContent isMobile={true} />
       </aside>
     </>
   );

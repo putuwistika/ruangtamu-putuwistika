@@ -146,7 +146,7 @@ const AdminDashboard = () => {
     return (
       <div className="flex h-screen">
         <Sidebar />
-        <div className="flex-1 flex items-center justify-center">
+        <div className="flex-1 flex items-center justify-center lg:ml-20">
           <Loading size="lg" />
         </div>
       </div>
@@ -156,12 +156,12 @@ const AdminDashboard = () => {
   return (
     <div className="flex h-screen bg-gray-50">
       <Sidebar />
-      
-      <div className="flex-1 flex flex-col overflow-hidden">
+
+      <div className="flex-1 flex flex-col overflow-hidden lg:ml-20">
         <Navbar title="Dashboard" />
         
         <main className="flex-1 overflow-y-auto pt-16">
-          <div className="p-6 max-w-7xl mx-auto">
+          <div className="p-4 sm:p-6 max-w-7xl mx-auto">
             {/* Welcome Section */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
