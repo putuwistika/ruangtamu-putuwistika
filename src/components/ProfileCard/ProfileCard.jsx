@@ -324,17 +324,19 @@ const ProfileCard = () => {
         </div>
 
         {/* QR Code Section */}
-        {guest.qr_code_url && (
-          <div className="qr-section">
-            <div className="qr-code-wrapper">
-              <img src={guest.qr_code_url} alt="QR Code" className="qr-code" />
-              <div className="qr-label">
-                <QrCode size={16} />
-                Scan QR Code
-              </div>
+        <div className="qr-section">
+          <div className="qr-code-wrapper">
+            <img
+              src={`https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://ruangtamu.putuwistika.com/guest/${guest.uid}`}
+              alt="QR Code"
+              className="qr-code"
+            />
+            <div className="qr-label">
+              <QrCode size={16} />
+              Scan QR Code
             </div>
           </div>
-        )}
+        </div>
 
         {/* Information Sections */}
         <div className="card-body">
