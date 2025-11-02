@@ -163,7 +163,18 @@ const ProfileCard = () => {
               <div className="gradient-overlay"></div>
             </div>
             <div className="header-content">
-              <div className="avatar" style={{ backgroundColor: '#6366f1' }}>
+              <div className="logo-container" style={{ marginBottom: '1rem' }}>
+                <img
+                  src="/images/logo.png"
+                  alt="RuangTamu Logo"
+                  style={{
+                    height: '60px',
+                    width: 'auto',
+                    filter: 'drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2))'
+                  }}
+                />
+              </div>
+              <div className="avatar" style={{ backgroundColor: 'rgba(255, 255, 255, 0.2)' }}>
                 <Lock size={48} />
               </div>
               <h1 className="guest-name">Protected Guest Profile</h1>
@@ -176,7 +187,7 @@ const ProfileCard = () => {
           <div className="card-body" style={{ padding: '3rem 2rem' }}>
             <form onSubmit={handlePasscodeSubmit} style={{ maxWidth: '400px', margin: '0 auto' }}>
               <div style={{ marginBottom: '1.5rem', textAlign: 'center' }}>
-                <KeyRound size={48} style={{ color: '#6366f1', margin: '0 auto 1rem' }} />
+                <KeyRound size={48} style={{ color: '#3B82F6', margin: '0 auto 1rem' }} />
                 <h3 style={{ fontSize: '1.25rem', fontWeight: '600', marginBottom: '0.5rem' }}>
                   Enter Passcode
                 </h3>
@@ -207,7 +218,7 @@ const ProfileCard = () => {
                   }}
                   onFocus={(e) => {
                     if (!passcodeError) {
-                      e.target.style.borderColor = '#6366f1';
+                      e.target.style.borderColor = '#3B82F6';
                     }
                   }}
                   onBlur={(e) => {
@@ -228,17 +239,24 @@ const ProfileCard = () => {
                 style={{
                   width: '100%',
                   padding: '0.75rem 1.5rem',
-                  backgroundColor: '#6366f1',
+                  background: 'linear-gradient(135deg, #06B6D4 0%, #3B82F6 33%, #8B5CF6 66%, #C026D3 100%)',
                   color: '#fff',
                   border: 'none',
                   borderRadius: '0.5rem',
                   fontSize: '1rem',
                   fontWeight: '500',
                   cursor: 'pointer',
-                  transition: 'background-color 0.2s'
+                  transition: 'all 0.3s',
+                  boxShadow: '0 10px 40px -10px rgba(6, 182, 212, 0.4), 0 5px 20px -5px rgba(139, 92, 246, 0.3)'
                 }}
-                onMouseOver={(e) => e.target.style.backgroundColor = '#4f46e5'}
-                onMouseOut={(e) => e.target.style.backgroundColor = '#6366f1'}
+                onMouseOver={(e) => {
+                  e.target.style.background = 'linear-gradient(135deg, #22D3EE 0%, #60A5FA 33%, #A78BFA 66%, #D946EF 100%)';
+                  e.target.style.transform = 'translateY(-2px)';
+                }}
+                onMouseOut={(e) => {
+                  e.target.style.background = 'linear-gradient(135deg, #06B6D4 0%, #3B82F6 33%, #8B5CF6 66%, #C026D3 100%)';
+                  e.target.style.transform = 'translateY(0)';
+                }}
               >
                 Unlock Profile
               </button>
@@ -310,6 +328,17 @@ const ProfileCard = () => {
           </div>
           
           <div className="header-content">
+            <div className="logo-container" style={{ marginBottom: '1rem' }}>
+              <img
+                src="/images/logo.png"
+                alt="RuangTamu Logo"
+                style={{
+                  height: '60px',
+                  width: 'auto',
+                  filter: 'drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2))'
+                }}
+              />
+            </div>
             <div className="avatar">
               <User size={48} />
             </div>
@@ -444,32 +473,6 @@ const ProfileCard = () => {
                     </span>
                     <span className="info-value gift-notes">
                       {guest.gift_notes}
-                    </span>
-                  </div>
-                )}
-              </div>
-            </section>
-          )}
-
-          {/* Runner Information */}
-          {(guest.assigned_runner || guest.runner_notes) && (
-            <section className="info-section">
-              <h3 className="section-title">
-                <UserCheck size={20} />
-                Runner Information
-              </h3>
-              <div className="info-grid">
-                {guest.assigned_runner && (
-                  <div className="info-item full-width">
-                    <span className="info-label">Assigned Runner</span>
-                    <span className="info-value">{guest.assigned_runner}</span>
-                  </div>
-                )}
-                {guest.runner_notes && (
-                  <div className="info-item full-width">
-                    <span className="info-label">Runner Notes</span>
-                    <span className="info-value notes-text">
-                      {guest.runner_notes}
                     </span>
                   </div>
                 )}
