@@ -151,9 +151,17 @@ const Login = () => {
         >
           {/* Header */}
           <motion.div variants={itemVariants} className="text-center mb-8">
-            <div className="inline-flex items-center justify-center w-16 h-16 gradient-gemini text-white rounded-2xl mb-4 shadow-lg shadow-gemini">
-              <LogIn className="w-8 h-8" />
-            </div>
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              transition={{ duration: 0.2 }}
+              className="inline-block mb-4"
+            >
+              <img
+                src="/images/logo.png"
+                alt={`${APP_NAME} Logo`}
+                className="h-20 w-auto mx-auto drop-shadow-lg"
+              />
+            </motion.div>
             <h1 className="text-2xl font-bold text-gray-900 mb-2">
               Welcome to {APP_NAME}
             </h1>

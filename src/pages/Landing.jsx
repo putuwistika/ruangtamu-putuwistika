@@ -86,6 +86,53 @@ const Landing = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-cyan-50 via-blue-50 to-purple-50">
+      {/* Navbar with Logo */}
+      <motion.nav
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-blue-100/50 shadow-sm"
+      >
+        <div className="container mx-auto px-4 py-3">
+          <div className="flex items-center justify-between">
+            {/* Logo */}
+            <motion.div
+              className="flex items-center gap-3"
+              whileHover={{ scale: 1.05 }}
+              transition={{ duration: 0.2 }}
+            >
+              <img
+                src="/images/logo.png"
+                alt={`${APP_NAME} Logo`}
+                className="h-10 w-auto"
+              />
+              <div className="hidden sm:block">
+                <h2 className="text-xl font-bold gradient-text">
+                  {APP_NAME}
+                </h2>
+                <p className="text-xs text-gray-600">{APP_TAGLINE}</p>
+              </div>
+            </motion.div>
+
+            {/* CTA Button */}
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <Button
+                variant="primary"
+                size="md"
+                rightIcon={<ArrowRight className="w-4 h-4" />}
+                onClick={() => navigate(ROUTES.LOGIN)}
+                className="gradient-gemini hover:gradient-gemini-hover transition-all duration-300 shadow-md shadow-gemini"
+              >
+                Login
+              </Button>
+            </motion.div>
+          </div>
+        </div>
+      </motion.nav>
+
       {/* Animated Background Elements */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
         <motion.div
@@ -115,7 +162,7 @@ const Landing = () => {
       </div>
 
       {/* Hero Section */}
-      <section className="relative overflow-hidden">
+      <section className="relative overflow-hidden pt-20">
         <div className="container mx-auto px-4 py-16 sm:py-20 lg:py-24">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             {/* Left Content */}
