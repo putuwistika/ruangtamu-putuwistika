@@ -85,7 +85,7 @@ const Landing = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-pink-50 via-purple-50 to-fuchsia-50">
+    <div className="min-h-screen bg-gradient-to-br from-cyan-50 via-blue-50 to-purple-50">
       {/* Animated Background Elements */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
         <motion.div
@@ -98,7 +98,7 @@ const Landing = () => {
             repeat: Infinity,
             ease: "easeInOut",
           }}
-          className="absolute top-20 left-10 w-72 h-72 bg-gradient-to-br from-primary-300/20 to-accent-300/20 rounded-full blur-3xl"
+          className="absolute top-20 left-10 w-72 h-72 bg-gradient-to-br from-cyan-300/20 to-blue-300/20 rounded-full blur-3xl"
         />
         <motion.div
           animate={{
@@ -110,7 +110,7 @@ const Landing = () => {
             repeat: Infinity,
             ease: "easeInOut",
           }}
-          className="absolute bottom-20 right-10 w-96 h-96 bg-gradient-to-br from-accent-300/20 to-primary-300/20 rounded-full blur-3xl"
+          className="absolute bottom-20 right-10 w-96 h-96 bg-gradient-to-br from-purple-300/20 to-cyan-300/20 rounded-full blur-3xl"
         />
       </div>
 
@@ -129,7 +129,7 @@ const Landing = () => {
               <motion.div
                 variants={itemVariants}
                 whileHover={{ scale: 1.05 }}
-                className="inline-flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-primary-100 to-accent-100 text-primary-700 rounded-full text-sm font-semibold mb-6 shadow-lg shadow-primary-200/50 backdrop-blur-sm border border-primary-200/50"
+                className="inline-flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-cyan-100 to-purple-100 text-blue-700 rounded-full text-sm font-semibold mb-6 shadow-lg shadow-gemini backdrop-blur-sm border border-blue-200/50"
               >
                 <Sparkles className="w-4 h-4 animate-pulse" />
                 <span>Modern Wedding Management</span>
@@ -141,7 +141,7 @@ const Landing = () => {
                 className="text-4xl sm:text-5xl lg:text-7xl font-bold text-gray-900 mb-6 leading-tight"
               >
                 Welcome to{' '}
-                <span className="bg-gradient-to-r from-primary-600 via-accent-500 to-primary-600 bg-clip-text text-transparent animate-pulse-slow">
+                <span className="gradient-text animate-pulse-slow">
                   {APP_NAME}
                 </span>
               </motion.h1>
@@ -158,7 +158,7 @@ const Landing = () => {
               {/* Tagline */}
               <motion.p
                 variants={itemVariants}
-                className="text-base text-primary-600 font-medium mb-10"
+                className="text-base text-blue-600 font-medium mb-10"
               >
                 {APP_TAGLINE}
               </motion.p>
@@ -177,7 +177,7 @@ const Landing = () => {
                     size="lg"
                     rightIcon={<ArrowRight className="w-5 h-5" />}
                     onClick={() => navigate(ROUTES.LOGIN)}
-                    className="shadow-xl shadow-primary-500/40 bg-gradient-to-r from-primary-600 to-accent-600 hover:from-primary-700 hover:to-accent-700 transition-all duration-300"
+                    className="shadow-xl shadow-gemini gradient-gemini hover:gradient-gemini-hover transition-all duration-300"
                   >
                     Get Started
                   </Button>
@@ -195,7 +195,7 @@ const Landing = () => {
                         behavior: 'smooth',
                       });
                     }}
-                    className="border-2 border-primary-300 text-primary-700 hover:bg-primary-50 hover:border-primary-400 transition-all duration-300"
+                    className="border-2 border-blue-300 text-blue-700 hover:bg-blue-50 hover:border-blue-400 transition-all duration-300"
                   >
                     Learn More
                   </Button>
@@ -205,14 +205,14 @@ const Landing = () => {
               {/* Stats */}
               <motion.div
                 variants={itemVariants}
-                className="grid grid-cols-3 gap-6 mt-16 pt-10 border-t-2 border-primary-200/50"
+                className="grid grid-cols-3 gap-6 mt-16 pt-10 border-t-2 border-blue-200/50"
               >
                 <motion.div
                   className="text-center lg:text-left"
                   whileHover={{ y: -5 }}
                   transition={{ duration: 0.2 }}
                 >
-                  <div className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-primary-600 to-accent-600 bg-clip-text text-transparent">
+                  <div className="text-3xl sm:text-4xl font-bold gradient-text">
                     100%
                   </div>
                   <div className="text-sm text-gray-600 font-medium">Accurate</div>
@@ -222,7 +222,7 @@ const Landing = () => {
                   whileHover={{ y: -5 }}
                   transition={{ duration: 0.2 }}
                 >
-                  <div className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-primary-600 to-accent-600 bg-clip-text text-transparent">
+                  <div className="text-3xl sm:text-4xl font-bold gradient-text">
                     Real-time
                   </div>
                   <div className="text-sm text-gray-600 font-medium">Updates</div>
@@ -232,7 +232,7 @@ const Landing = () => {
                   whileHover={{ y: -5 }}
                   transition={{ duration: 0.2 }}
                 >
-                  <div className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-primary-600 to-accent-600 bg-clip-text text-transparent">
+                  <div className="text-3xl sm:text-4xl font-bold gradient-text">
                     Easy
                   </div>
                   <div className="text-sm text-gray-600 font-medium">To Use</div>
@@ -268,7 +268,7 @@ const Landing = () => {
 
               {/* Background Decoration */}
               <motion.div
-                className="absolute inset-0 bg-gradient-to-br from-primary-400/30 to-accent-400/30 rounded-full blur-3xl -z-10"
+                className="absolute inset-0 bg-gradient-to-br from-cyan-400/30 via-blue-400/30 to-purple-400/30 rounded-full blur-3xl -z-10"
                 animate={{
                   scale: [1, 1.1, 1],
                   rotate: [0, 180, 360],
@@ -282,7 +282,7 @@ const Landing = () => {
 
               {/* Additional floating elements */}
               <motion.div
-                className="absolute -top-10 -right-10 w-20 h-20 bg-gradient-to-br from-accent-400 to-primary-400 rounded-full blur-xl opacity-60"
+                className="absolute -top-10 -right-10 w-20 h-20 bg-gradient-to-br from-purple-400 to-blue-400 rounded-full blur-xl opacity-60"
                 animate={{
                   y: [0, -20, 0],
                   x: [0, 10, 0],
@@ -294,7 +294,7 @@ const Landing = () => {
                 }}
               />
               <motion.div
-                className="absolute -bottom-10 -left-10 w-32 h-32 bg-gradient-to-br from-primary-400 to-accent-400 rounded-full blur-xl opacity-60"
+                className="absolute -bottom-10 -left-10 w-32 h-32 bg-gradient-to-br from-cyan-400 to-blue-400 rounded-full blur-xl opacity-60"
                 animate={{
                   y: [0, 20, 0],
                   x: [0, -10, 0],
@@ -328,8 +328,8 @@ const Landing = () => {
       {/* Features Section */}
       <section id="features" className="py-20 sm:py-24 bg-white relative overflow-hidden">
         {/* Decorative elements */}
-        <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-primary-100 to-accent-100 rounded-full blur-3xl opacity-40" />
-        <div className="absolute bottom-0 left-0 w-64 h-64 bg-gradient-to-br from-accent-100 to-primary-100 rounded-full blur-3xl opacity-40" />
+        <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-cyan-100 to-purple-100 rounded-full blur-3xl opacity-40" />
+        <div className="absolute bottom-0 left-0 w-64 h-64 bg-gradient-to-br from-blue-100 to-cyan-100 rounded-full blur-3xl opacity-40" />
 
         <div className="container mx-auto px-4 relative z-10">
           {/* Section Header */}
@@ -345,12 +345,12 @@ const Landing = () => {
               whileInView={{ scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.2 }}
-              className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-primary-100 to-accent-100 text-primary-700 rounded-full text-sm font-semibold mb-4"
+              className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-cyan-100 to-purple-100 text-blue-700 rounded-full text-sm font-semibold mb-4"
             >
               <Sparkles className="w-4 h-4" />
               <span>Features</span>
             </motion.div>
-            <h2 className="text-3xl sm:text-5xl font-bold bg-gradient-to-r from-gray-900 via-primary-800 to-gray-900 bg-clip-text text-transparent mb-4">
+            <h2 className="text-3xl sm:text-5xl font-bold bg-gradient-to-r from-gray-900 via-blue-800 to-gray-900 bg-clip-text text-transparent mb-4">
               Powerful Features
             </h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
@@ -369,10 +369,10 @@ const Landing = () => {
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 whileHover={{ y: -10, scale: 1.02 }}
-                className="bg-white rounded-2xl shadow-lg border-2 border-primary-100/50 p-8 text-center group hover:shadow-2xl hover:border-primary-300 transition-all duration-300"
+                className="bg-white rounded-2xl shadow-lg border-2 border-blue-100/50 p-8 text-center group hover:shadow-2xl hover:border-blue-300 transition-all duration-300"
               >
                 <motion.div
-                  className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-primary-500 to-accent-500 text-white rounded-2xl mb-6 shadow-lg group-hover:shadow-primary-300 transition-all duration-300"
+                  className="inline-flex items-center justify-center w-16 h-16 gradient-gemini text-white rounded-2xl mb-6 shadow-lg shadow-gemini group-hover:shadow-xl transition-all duration-300"
                   whileHover={{ rotate: 360 }}
                   transition={{ duration: 0.6 }}
                 >
@@ -389,7 +389,7 @@ const Landing = () => {
       </section>
 
       {/* Benefits Section */}
-      <section className="py-20 sm:py-24 bg-gradient-to-br from-pink-50 via-purple-50 to-fuchsia-50 relative overflow-hidden">
+      <section className="py-20 sm:py-24 bg-gradient-to-br from-cyan-50 via-blue-50 to-purple-50 relative overflow-hidden">
         {/* Decorative elements */}
         <motion.div
           animate={{
@@ -401,7 +401,7 @@ const Landing = () => {
             repeat: Infinity,
             ease: "easeInOut",
           }}
-          className="absolute -top-20 -left-20 w-80 h-80 bg-gradient-to-br from-primary-200/30 to-accent-200/30 rounded-full blur-3xl"
+          className="absolute -top-20 -left-20 w-80 h-80 bg-gradient-to-br from-cyan-200/30 to-purple-200/30 rounded-full blur-3xl"
         />
 
         <div className="container mx-auto px-4 relative z-10">
@@ -417,7 +417,7 @@ const Landing = () => {
               <motion.div
                 whileHover={{ scale: 1.02 }}
                 transition={{ duration: 0.3 }}
-                className="aspect-square bg-gradient-to-br from-primary-500 via-accent-500 to-primary-600 rounded-3xl p-10 text-white shadow-2xl relative overflow-hidden"
+                className="aspect-square gradient-gemini rounded-3xl p-10 text-white shadow-2xl shadow-gemini relative overflow-hidden"
               >
                 {/* Animated background pattern */}
                 <div className="absolute inset-0 opacity-10">
@@ -458,7 +458,7 @@ const Landing = () => {
                   repeat: Infinity,
                   ease: "easeInOut",
                 }}
-                className="absolute -bottom-8 -right-8 w-48 h-48 bg-gradient-to-br from-accent-400 to-primary-400 rounded-3xl -z-10 shadow-xl"
+                className="absolute -bottom-8 -right-8 w-48 h-48 bg-gradient-to-br from-purple-400 to-blue-400 rounded-3xl -z-10 shadow-xl"
               />
               <motion.div
                 animate={{
@@ -469,7 +469,7 @@ const Landing = () => {
                   repeat: Infinity,
                   ease: "easeInOut",
                 }}
-                className="absolute -top-8 -left-8 w-32 h-32 bg-gradient-to-br from-primary-300 to-accent-300 rounded-full -z-10 blur-xl"
+                className="absolute -top-8 -left-8 w-32 h-32 bg-gradient-to-br from-cyan-300 to-blue-300 rounded-full -z-10 blur-xl"
               />
             </motion.div>
 
@@ -485,13 +485,13 @@ const Landing = () => {
                 whileInView={{ scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5 }}
-                className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-primary-100 to-accent-100 text-primary-700 rounded-full text-sm font-semibold mb-6"
+                className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-cyan-100 to-purple-100 text-blue-700 rounded-full text-sm font-semibold mb-6"
               >
                 <CheckCircle className="w-4 h-4" />
                 <span>Benefits</span>
               </motion.div>
 
-              <h2 className="text-3xl sm:text-5xl font-bold bg-gradient-to-r from-gray-900 via-primary-800 to-gray-900 bg-clip-text text-transparent mb-6 leading-tight">
+              <h2 className="text-3xl sm:text-5xl font-bold bg-gradient-to-r from-gray-900 via-blue-800 to-gray-900 bg-clip-text text-transparent mb-6 leading-tight">
                 Why Choose {APP_NAME}?
               </h2>
               <p className="text-lg text-gray-700 mb-10 leading-relaxed">
@@ -508,7 +508,7 @@ const Landing = () => {
                     viewport={{ once: true }}
                     transition={{ duration: 0.4, delay: index * 0.1 }}
                     whileHover={{ x: 10 }}
-                    className="flex items-start gap-4 bg-white/80 backdrop-blur-sm rounded-xl p-4 shadow-md hover:shadow-lg transition-all duration-300 border border-primary-100/50"
+                    className="flex items-start gap-4 bg-white/80 backdrop-blur-sm rounded-xl p-4 shadow-md hover:shadow-lg transition-all duration-300 border border-blue-100/50"
                   >
                     <div className="flex-shrink-0 w-8 h-8 bg-gradient-to-br from-green-500 to-emerald-500 text-white rounded-full flex items-center justify-center shadow-md">
                       <CheckCircle className="w-5 h-5" />
@@ -523,7 +523,7 @@ const Landing = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 sm:py-28 bg-gradient-to-br from-primary-600 via-accent-600 to-primary-700 text-white relative overflow-hidden">
+      <section className="py-20 sm:py-28 gradient-gemini text-white relative overflow-hidden">
         {/* Background Decoration */}
         <div className="absolute inset-0 opacity-10">
           <motion.div
@@ -614,7 +614,7 @@ const Landing = () => {
                 size="lg"
                 rightIcon={<ArrowRight className="w-5 h-5" />}
                 onClick={() => navigate(ROUTES.LOGIN)}
-                className="shadow-2xl bg-white text-primary-700 hover:bg-gray-50 px-8 py-4 text-lg font-bold transition-all duration-300"
+                className="shadow-2xl bg-white text-blue-700 hover:bg-gray-50 px-8 py-4 text-lg font-bold transition-all duration-300"
               >
                 Start Managing Guests
               </Button>
@@ -648,7 +648,7 @@ const Landing = () => {
       {/* Footer */}
       <footer className="py-10 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-gray-400 relative overflow-hidden">
         {/* Decorative gradient */}
-        <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-primary-600 via-accent-600 to-primary-600" />
+        <div className="absolute top-0 left-0 right-0 h-1 gradient-gemini" />
 
         <div className="container mx-auto px-4 text-center relative z-10">
           <motion.div
@@ -658,7 +658,7 @@ const Landing = () => {
             transition={{ duration: 0.5 }}
           >
             <div className="mb-4">
-              <h3 className="text-2xl font-bold bg-gradient-to-r from-primary-400 to-accent-400 bg-clip-text text-transparent">
+              <h3 className="text-2xl font-bold gradient-text">
                 {APP_NAME}
               </h3>
             </div>
@@ -671,9 +671,9 @@ const Landing = () => {
 
             {/* Social or links could go here */}
             <div className="mt-6 flex items-center justify-center gap-2">
-              <div className="w-2 h-2 bg-primary-500 rounded-full animate-pulse" />
-              <div className="w-2 h-2 bg-accent-500 rounded-full animate-pulse delay-100" />
-              <div className="w-2 h-2 bg-primary-500 rounded-full animate-pulse delay-200" />
+              <div className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse" />
+              <div className="w-2 h-2 bg-blue-400 rounded-full animate-pulse delay-100" />
+              <div className="w-2 h-2 bg-purple-400 rounded-full animate-pulse delay-200" />
             </div>
           </motion.div>
         </div>

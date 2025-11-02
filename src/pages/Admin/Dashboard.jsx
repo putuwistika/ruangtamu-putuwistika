@@ -282,7 +282,7 @@ const AdminDashboard = () => {
                             className="flex items-center justify-between py-3 border-b border-gray-100 last:border-0"
                           >
                             <div className="flex items-center gap-3">
-                              <div className="w-10 h-10 bg-primary-100 text-primary-600 rounded-full flex items-center justify-center font-semibold">
+                              <div className="w-10 h-10 bg-gradient-to-br from-cyan-100 to-blue-100 text-blue-600 rounded-full flex items-center justify-center font-semibold">
                                 {guest.name?.charAt(0).toUpperCase()}
                               </div>
                               <div>

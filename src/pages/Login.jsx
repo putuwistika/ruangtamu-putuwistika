@@ -129,7 +129,7 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-cyan-50 via-blue-50 to-purple-50 flex items-center justify-center p-4">
       <div className="w-full max-w-md">
         {/* Back Button */}
         <motion.button
@@ -151,7 +151,7 @@ const Login = () => {
         >
           {/* Header */}
           <motion.div variants={itemVariants} className="text-center mb-8">
-            <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-primary-500 to-purple-500 text-white rounded-2xl mb-4">
+            <div className="inline-flex items-center justify-center w-16 h-16 gradient-gemini text-white rounded-2xl mb-4 shadow-lg shadow-gemini">
               <LogIn className="w-8 h-8" />
             </div>
             <h1 className="text-2xl font-bold text-gray-900 mb-2">
@@ -282,8 +282,8 @@ const Login = () => {
 
       {/* Background Decoration */}
       <div className="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
-        <div className="absolute top-0 right-0 w-96 h-96 bg-primary-200/30 rounded-full blur-3xl" />
-        <div className="absolute bottom-0 left-0 w-96 h-96 bg-purple-200/30 rounded-full blur-3xl" />
+        <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-br from-cyan-200/30 to-blue-200/30 rounded-full blur-3xl" />
+        <div className="absolute bottom-0 left-0 w-96 h-96 bg-gradient-to-br from-blue-200/30 to-purple-200/30 rounded-full blur-3xl" />
       </div>
     </div>
   );

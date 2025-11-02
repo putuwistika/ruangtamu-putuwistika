@@ -215,7 +215,7 @@ const Navbar = ({ onMenuClick, title = '' }) => {
               className="flex items-center gap-2 p-2 pr-3 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors"
             >
               {/* User Avatar */}
-              <div className="w-8 h-8 bg-primary-600 text-white rounded-full flex items-center justify-center font-semibold text-sm">
+              <div className="w-8 h-8 gradient-gemini text-white rounded-full flex items-center justify-center font-semibold text-sm shadow-md">
                 {user?.name?.charAt(0).toUpperCase()}
               </div>
 
