@@ -10,7 +10,6 @@ import { motion } from 'framer-motion';
 import {
   LayoutDashboard,
   Search,
-  UserPlus,
   Users,
   List,
   Clock,
@@ -48,11 +47,6 @@ const Sidebar = ({ collapsed = false, onToggle }) => {
       label: 'Search Guest',
       icon: Search,
       path: ROUTES.ADMIN_SEARCH,
-    },
-    {
-      label: 'Create Guest',
-      icon: UserPlus,
-      path: ROUTES.ADMIN_CREATE_GUEST, // ← Updated
     },
     {
       label: 'All Guests',
