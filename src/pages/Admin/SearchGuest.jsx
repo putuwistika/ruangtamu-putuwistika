@@ -14,6 +14,7 @@ import {
   Sparkles,
   Eye,
   Clock,
+  Users,
 } from 'lucide-react';
 import Sidebar from '@components/Layout/Sidebar';
 import Navbar from '@components/Layout/Navbar';
@@ -255,8 +256,26 @@ const SearchGuest = () => {
                             </div>
                           )}
 
+                          {/* Invitation Details - Group Names or Value */}
+                          {(guest.invitation_group_names?.length > 0 || guest.invitation_value) && (
+                            <div className="flex items-center gap-2 text-sm">
+                              <div className="flex items-center gap-2 px-3 py-1.5 bg-green-50 text-green-700 rounded-lg border border-green-200">
+                                <Users className="w-4 h-4 flex-shrink-0" />
+                                <span className="font-medium">
+                                  {guest.invitation_group_names?.length > 0
+                                    ? `With: ${guest.invitation_group_names.join(', ')}`
+                                    : guest.invitation_value === 'alone'
+                                    ? 'Solo Invitation'
+                                    : guest.invitation_value === 'group'
+                                    ? 'Group Invitation'
+                                    : guest.invitation_value}
+                                </span>
+                              </div>
+                            </div>
+                          )}
+
                           {/* If no table and no invitation type, show placeholder */}
-                          {!guest.table_number && !guest.invitation_type && (
+                          {!guest.table_number && !guest.invitation_type && !guest.invitation_value && !guest.invitation_group_names?.length && (
                             <div className="text-xs text-gray-400 italic py-2">
                               No additional info
                             </div>
@@ -420,6 +439,25 @@ const SearchGuest = () => {
                   </span>
                   <span className="font-medium text-gray-900">
                     {selectedGuest.invitation_type}
+                  </span>
+                </div>
+              )}
+
+              {/* Invitation Details */}
+              {(selectedGuest.invitation_group_names?.length > 0 || selectedGuest.invitation_value) && (
+                <div className="flex items-center justify-between py-2 border-b border-gray-100">
+                  <span className="text-sm text-gray-600 flex items-center gap-2">
+                    <Users className="w-4 h-4" />
+                    Invitation Details
+                  </span>
+                  <span className="font-medium text-gray-900 text-right text-xs max-w-[200px]">
+                    {selectedGuest.invitation_group_names?.length > 0
+                      ? `With: ${selectedGuest.invitation_group_names.join(', ')}`
+                      : selectedGuest.invitation_value === 'alone'
+                      ? 'Solo Invitation'
+                      : selectedGuest.invitation_value === 'group'
+                      ? 'Group Invitation'
+                      : selectedGuest.invitation_value}
                   </span>
                 </div>
               )}
