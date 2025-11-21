@@ -293,53 +293,82 @@ const CheckInModal = ({ isOpen, onClose, guest, onSuccess }) => {
                 </div>
 
                 {/* Details Grid */}
-                <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-3">
                   {/* Table Number */}
                   {guest.table_number && (
                     <div className="flex items-center gap-2">
-                      <Hash className="w-4 h-4 text-gray-500" />
-                      <div>
-                        <p className="text-xs text-gray-500">Nomor Meja</p>
-                        <p className="text-sm font-medium text-gray-900">
-                          {guest.table_number}
-                        </p>
+                      <div className="flex items-center gap-2 px-3 py-2 bg-purple-50 text-purple-700 rounded-lg border border-purple-200 w-full">
+                        <Hash className="w-4 h-4 flex-shrink-0" />
+                        <div>
+                          <p className="text-xs text-purple-600">Nomor Meja</p>
+                          <p className="text-sm font-semibold text-purple-900">
+                            {guest.table_number}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Invitation Type */}
+                  {guest.invitation_type && (
+                    <div className="flex items-center gap-2">
+                      <div className="flex items-center gap-2 px-3 py-2 bg-blue-50 text-blue-700 rounded-lg border border-blue-200 w-full">
+                        <Sparkles className="w-4 h-4 flex-shrink-0" />
+                        <div>
+                          <p className="text-xs text-blue-600">Invitation Type</p>
+                          <p className="text-sm font-semibold text-blue-900">
+                            {guest.invitation_type}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Invitation Details - Group Names or Value */}
+                  {(guest.invitation_group_names?.length > 0 || guest.invitation_value) && (
+                    <div className="flex items-center gap-2">
+                      <div className="flex items-center gap-2 px-3 py-2 bg-amber-50 text-amber-700 rounded-lg border border-amber-200 w-full">
+                        <Users className="w-4 h-4 flex-shrink-0" />
+                        <div className="flex-1 min-w-0">
+                          <p className="text-xs text-amber-600">Invitation Details</p>
+                          <p className="text-sm font-semibold text-amber-900 break-words">
+                            {guest.invitation_group_names?.length > 0
+                              ? `With: ${guest.invitation_group_names.join(', ')}`
+                              : guest.invitation_value === 'alone'
+                              ? 'Solo Invitation'
+                              : guest.invitation_value === 'group'
+                              ? 'Group Invitation'
+                              : guest.invitation_value}
+                          </p>
+                        </div>
                       </div>
                     </div>
                   )}
 
                   {/* Companions */}
                   <div className="flex items-center gap-2">
-                    <Users className="w-4 h-4 text-gray-500" />
-                    <div>
-                      <p className="text-xs text-gray-500">Companions</p>
-                      <p className="text-sm font-medium text-gray-900">
-                        {guest.companion_count || 0}
-                      </p>
-                    </div>
-                  </div>
-
-                  {/* Invitation Type */}
-                  {guest.invitation_type && (
-                    <div className="flex items-center gap-2">
-                      <Sparkles className="w-4 h-4 text-gray-500" />
+                    <div className="flex items-center gap-2 px-3 py-2 bg-green-50 text-green-700 rounded-lg border border-green-200 w-full">
+                      <Users className="w-4 h-4 flex-shrink-0" />
                       <div>
-                        <p className="text-xs text-gray-500">Type</p>
-                        <p className="text-sm font-medium text-gray-900">
-                          {guest.invitation_type}
+                        <p className="text-xs text-green-600">Companions</p>
+                        <p className="text-sm font-semibold text-green-900">
+                          {guest.companion_count || 0} person(s)
                         </p>
                       </div>
                     </div>
-                  )}
+                  </div>
 
                   {/* Gift Type */}
                   {guest.gift_type && (
                     <div className="flex items-center gap-2">
-                      <Gift className="w-4 h-4 text-gray-500" />
-                      <div>
-                        <p className="text-xs text-gray-500">Gift</p>
-                        <p className="text-sm font-medium text-gray-900">
-                          {guest.gift_type}
-                        </p>
+                      <div className="flex items-center gap-2 px-3 py-2 bg-pink-50 text-pink-700 rounded-lg border border-pink-200 w-full">
+                        <Gift className="w-4 h-4 flex-shrink-0" />
+                        <div>
+                          <p className="text-xs text-pink-600">Gift</p>
+                          <p className="text-sm font-semibold text-pink-900">
+                            {guest.gift_type}
+                          </p>
+                        </div>
                       </div>
                     </div>
                   )}
